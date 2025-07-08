@@ -1,0 +1,11 @@
+Filename: diffusion_numpy_memory2.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    39   37.469 MiB   31.316 MiB         500   @profile
+    40                                         def evolve(grid, dt, out, D=1):
+    41   37.469 MiB    6.152 MiB         500       laplacian(grid, out)
+    42   37.469 MiB    0.000 MiB         500       multiply(out, D * dt, out)
+    43   37.469 MiB    0.000 MiB         500       add(out, grid, out)
+
+

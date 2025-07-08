@@ -1,0 +1,76 @@
+Script started on 2024-12-18 12:39:03+00:00 [TERM="screen-256color" TTY="/dev/pts/5" COLUMNS="177" LINES="73"]
+Starting
+Grid size:  (64, 64)
+Pure Python: 30.41s, 0.00s/it, 10867it 
+python+memory: 28.55s, 0.00s/it, 11668it [1.14x speedup]
+numpy+memory: 5.43s, 0.00s/it, 42452it [21.87x speedup]
+numpy: 8.19s, 0.00s/it, 64627it [22.07x speedup]
+numpy+memory2: 6.04s, 0.00s/it, 101067it [46.82x speedup]
+numpy+memory2+numexpr: 1.26s, 0.00s/it, 8166it [18.07x speedup]
+numpy+memory+scipy: 5.13s, 0.00s/it, 78398it [42.80x speedup]
+pytorch: 0.06s, 0.00s/it, 468it [21.34x speedup]
+pytorch+transfer: 5.59s, 0.00s/it, 42668it [21.34x speedup]
+
+Grid size:  (256, 256)
+Pure Python: 31.03s, 0.04s/it, 694it 
+python+memory: 29.57s, 0.04s/it, 734it [1.11x speedup]
+numpy+memory: 5.90s, 0.00s/it, 15431it [116.99x speedup]
+numpy: 6.49s, 0.00s/it, 16396it [112.89x speedup]
+numpy+memory2: 9.26s, 0.00s/it, 26529it [128.09x speedup]
+numpy+memory2+numexpr: 9.40s, 0.00s/it, 19169it [91.14x speedup]
+numpy+memory+scipy: 7.79s, 0.00s/it, 8577it [49.21x speedup]
+pytorch: 6.01s, 0.00s/it, 45939it [341.57x speedup]
+pytorch+transfer: 3.36s, 0.00s/it, 25606it [341.14x speedup]
+
+Grid size:  (512, 512)
+Pure Python: 26.37s, 0.24s/it, 112it 
+python+memory: 28.77s, 0.21s/it, 138it [1.13x speedup]
+numpy+memory: 6.27s, 0.00s/it, 4522it [169.92x speedup]
+numpy: 7.02s, 0.00s/it, 3670it [123.10x speedup]
+numpy+memory2: 7.43s, 0.00s/it, 5895it [186.66x speedup]
+numpy+memory2+numexpr: 6.05s, 0.00s/it, 4389it [170.66x speedup]
+numpy+memory+scipy: 9.13s, 0.01s/it, 1646it [42.43x speedup]
+pytorch: 3.07s, 0.00s/it, 23198it [1779.19x speedup]
+pytorch+transfer: 1.76s, 0.00s/it, 13294it [1777.27x speedup]
+
+Grid size:  (2048, 2048)
+Pure Python: 27.27s, 4.55s/it, 6it 
+python+memory: 27.37s, 3.91s/it, 7it [1.16x speedup]
+numpy+memory: 9.98s, 0.06s/it, 179it [81.49x speedup]
+numpy: 9.80s, 0.05s/it, 186it [86.29x speedup]
+numpy+memory2: 9.63s, 0.04s/it, 270it [127.46x speedup]
+numpy+memory2+numexpr: 10.05s, 0.03s/it, 308it [139.32x speedup]
+numpy+memory+scipy: 9.89s, 0.21s/it, 47it [21.60x speedup]
+pytorch: 19.99s, 0.00s/it, 21732it [4940.71x speedup]
+pytorch+transfer: 0.12s, 0.00s/it, 123it [4687.63x speedup]
+
+Grid size:  (4096, 4096)
+Pure Python: 17.90s, 17.90s/it, 1it 
+python+memory: 17.05s, 17.05s/it, 1it [1.05x speedup]
+numpy+memory: 10.01s, 0.22s/it, 45it [80.44x speedup]
+numpy: 9.59s, 0.21s/it, 45it [84.03x speedup]
+numpy+memory2: 9.35s, 0.15s/it, 62it [118.67x speedup]
+numpy+memory2+numexpr: 9.27s, 0.13s/it, 69it [133.29x speedup]
+numpy+memory+scipy: 9.70s, 1.08s/it, 9it [16.61x speedup]
+pytorch: 77.40s, 0.00s/it, 21421it [4954.34x speedup]
+pytorch+transfer: 0.13s, 0.00s/it, 30it [4081.62x speedup]
+
+
+defaultdict(<class 'list'>, {'python': [(0.0027984461569792655, 0), (0.04470675582500974, 0), (0.23541649963174546, 0), (4.545457641283671, 0), (17.90045738220215, 0)], 'python+memory': [(0.002446667294736018, 1.1437787896213336), (0.0402856379828596, 1.1097442677718348), (0.20844249794448633, 1.129407399898091), (3.910350833620344, 1.1624168353905275), (17.04726243019104, 1.0500487955473767)], 'numpy+memory': [(0.0001279795348425225, 21.86635668290813), (0.0003821512072357184, 116.9870851603348), (0.0013854503631591797, 169.9205586080586), (0.05577803590444213, 81.49189134359021), (0.222536653942532, 80.43824271225348)], 'numpy': [(0.0001267782410783331, 22.073552473804835), (0.0003960188001096176, 112.89048856426754), (0.00191238283786202, 123.10113590798233), (0.05267905548054685, 86.28586066738048), (0.21302187177870008, 84.03107733837875)], 'numpy+memory+laplace': [(5.9768388731504866e-05, 46.82150910158567), (0.0003490368642019378, 128.08605740608627), (0.0012612213817463779, 186.65755515956354), (0.03566281972108064, 127.45648484426506), (0.15083806360921553, 118.67334380914521)], 'numpy+memory+laplace+numexpr': [(0.000154889508727833, 18.067370604787747), (0.0004905070912278906, 91.14395413345592), (0.0013794772960135269, 170.65630606031883), (0.03262576886585781, 139.32108879862747), (0.13429524242014124, 133.29182076458642)], 'numpy+memory+scipy': [(6.538234945128057e-05, 42.80124805035521), (0.0009085628638056813, 49.20601271082921), (0.00554882480625973, 42.42637096167964), (0.21048371842566957, 21.59529333328867), (1.0779745843675401, 16.605639540847385)], 'pytorch': [(0.00013116333219740126, 21.335582971981793), (0.00013088717573045446, 341.56712126692713), (0.0001323166073617344, 1779.19086897498), (0.0009200012576354048, 4940.7080735589925), (0.003613084979008562, 4954.341646045112)], 'pytorch+transfer': [(0.0001311122370915079, 21.34389755722138), (0.00013105039493018815, 341.1417100179322), (0.00013245947292483406, 1777.2719038776168), (0.0009696716215552353, 4687.625728381439), (0.004385622342427572, 4081.623082094596)]})
+
+[width="40%",frame="topbot",options="header"]
+|======================
+|Method 2+|64x64 2+| 256x256 2+| 512x512 2+| 2048x2048 2+| 4096x4096|
+| |runtime | speedup|runtime | speedup|runtime | speedup|runtime | speedup|runtime | speedup|
+|python|0.0028s | 0.00x|0.0447s | 0.00x|0.2354s | 0.00x|4.5455s | 0.00x|17.9005s | 0.00x|
+|python+memory|0.0024s | 1.14x|0.0403s | 1.11x|0.2084s | 1.13x|3.9104s | 1.16x|17.0473s | 1.05x|
+|numpy+memory|0.0001s | 21.87x|0.0004s | 116.99x|0.0014s | 169.92x|0.0558s | 81.49x|0.2225s | 80.44x|
+|numpy|0.0001s | 22.07x|0.0004s | 112.89x|0.0019s | 123.10x|0.0527s | 86.29x|0.2130s | 84.03x|
+|numpy+memory+laplace|0.0001s | 46.82x|0.0003s | 128.09x|0.0013s | 186.66x|0.0357s | 127.46x|0.1508s | 118.67x|
+|numpy+memory+laplace+numexpr|0.0002s | 18.07x|0.0005s | 91.14x|0.0014s | 170.66x|0.0326s | 139.32x|0.1343s | 133.29x|
+|numpy+memory+scipy|0.0001s | 42.80x|0.0009s | 49.21x|0.0055s | 42.43x|0.2105s | 21.60x|1.0780s | 16.61x|
+|pytorch|0.0001s | 21.34x|0.0001s | 341.57x|0.0001s | 1779.19x|0.0009s | 4940.71x|0.0036s | 4954.34x|
+|pytorch+transfer|0.0001s | 21.34x|0.0001s | 341.14x|0.0001s | 1777.27x|0.0010s | 4687.63x|0.0044s | 4081.62x|
+|======================
+
+Script done on 2024-12-18 13:00:22+00:00 [COMMAND_EXIT_CODE="0"]

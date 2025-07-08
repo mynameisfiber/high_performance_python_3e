@@ -1,0 +1,8 @@
+numpy==2.3.2
+numba==0.61.2
+scikit-learn==1.7.1
+matplotlib==3.10.3
+pandas==2.3.1
+line-profiler==5.0.0
+dask==2025.7.0
+swifter==1.4.0

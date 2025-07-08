@@ -1,0 +1,15 @@
+Wrote profile results to diffusion_scipy.py.lprof
+Timer unit: 1e-06 s
+
+Total time: 5.58356 s
+File: diffusion_scipy.py
+Function: evolve at line 20
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    20                                           @profile
+    21                                           def evolve(grid, dt, out, D=1):
+    22      1000    5369199.6   5369.2     96.2      laplacian(grid, out)
+    23      1000      92398.3     92.4      1.7      multiply(out, D * dt, out)
+    24      1000     121961.0    122.0      2.2      add(out, grid, grid)
+

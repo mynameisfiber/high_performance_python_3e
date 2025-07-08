@@ -1,0 +1,13 @@
+[package]
+name = "diffusion"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name = "diffusion"
+crate-type = ["cdylib"]
+
+[dependencies]
+numpy = "0.21.0"
+pyo3 = "0.21.0"

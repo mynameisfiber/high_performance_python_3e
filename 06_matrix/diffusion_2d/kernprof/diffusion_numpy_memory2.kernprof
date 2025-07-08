@@ -1,0 +1,15 @@
+Wrote profile results to diffusion_numpy_memory2.py.lprof
+Timer unit: 1e-06 s
+
+Total time: 1.30854 s
+File: diffusion_numpy_memory2.py
+Function: evolve at line 39
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    39                                           @profile
+    40                                           def evolve(grid, dt, out, D=1):
+    41      1000    1133910.9   1133.9     86.7      laplacian(grid, out)
+    42      1000      75017.0     75.0      5.7      multiply(out, D * dt, out)
+    43      1000      99607.5     99.6      7.6      add(out, grid, out)
+

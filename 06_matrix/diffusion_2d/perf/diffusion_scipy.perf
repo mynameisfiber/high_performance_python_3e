@@ -1,0 +1,22 @@
+
+ Performance counter stats for 'python diffusion_scipy.py':
+
+    27,101,948,884      cycles                    #    3.188 GHz                      
+    25,977,940,518      instructions              #    0.96  insn per cycle           
+     4,973,079,782      cache-references          #  584.901 M/sec                    
+       608,156,089      cache-misses              #   12.229 % of all cache refs      
+     4,162,234,707      branches                  #  489.534 M/sec                    
+        37,407,589      branch-misses             #    0.90% of all branches          
+          8,502.44 msec task-clock                #    1.447 CPUs utilized          
+            16,398      faults                    #    0.002 M/sec                  
+            16,398      page-faults               #    0.002 M/sec                  
+            16,398      minor-faults              #    0.002 M/sec                  
+            58,811      cs                        #    0.007 M/sec                  
+                25      migrations                #    0.003 K/sec                  
+
+       5.876790262 seconds time elapsed
+
+       7.391329000 seconds user
+       1.112810000 seconds sys
+
+

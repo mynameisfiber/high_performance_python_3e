@@ -1,0 +1,2 @@
+numpy==2.3.2
+ipyparallel==9.0.1

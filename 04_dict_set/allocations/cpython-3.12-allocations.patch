@@ -1,0 +1,276 @@
+From c01fc25f09f7caa5f2c35b50779de79e4fe26b0d Mon Sep 17 00:00:00 2001
+From: Micha Gorelick <mynameisfiber@gmail.com>
+Date: Thu, 7 Mar 2024 15:42:59 +0100
+Subject: [PATCH 1/2] Added object resize debugging + script for testing
+
+---
+ Objects/listobject.c | 3 +++
+ list_resize_test.py  | 8 ++++++++
+ 2 files changed, 11 insertions(+)
+ create mode 100644 list_resize_test.py
+
+diff --git a/Objects/listobject.c b/Objects/listobject.c
+index f59abe2e64..c4b88fc5cc 100644
+--- a/Objects/listobject.c
++++ b/Objects/listobject.c
+@@ -8,6 +8,7 @@
+ #include "pycore_object.h"        // _PyObject_GC_TRACK()
+ #include "pycore_tuple.h"         // _PyTuple_FromArray()
+ #include <stddef.h>
++#include <stdio.h>
+ 
+ /*[clinic input]
+ class list "PyListObject *" "&PyList_Type"
+@@ -79,6 +80,8 @@ list_resize(PyListObject *self, Py_ssize_t newsize)
+         new_allocated = 0;
+     if (new_allocated <= (size_t)PY_SSIZE_T_MAX / sizeof(PyObject *)) {
+         num_allocated_bytes = new_allocated * sizeof(PyObject *);
++
++        printf("Reallocating bins for list: %ld len, %ld newsize, %ld new_alloc, change = %ld\n", Py_SIZE(self), newsize, new_allocated, new_allocated - allocated);
+         items = (PyObject **)PyMem_Realloc(self->ob_item, num_allocated_bytes);
+     }
+     else {
+diff --git a/list_resize_test.py b/list_resize_test.py
+new file mode 100644
+index 0000000000..8d559a865d
+--- /dev/null
++++ b/list_resize_test.py
+@@ -0,0 +1,8 @@
++items = []
++
++print()
++print()
++for i in range(1<<16):
++    items.append(i)
++print()
++print()
+-- 
+2.25.1
+
+
+From 63c6f894c3c688547d601f6afee47c52458cfeb1 Mon Sep 17 00:00:00 2001
+From: Micha Gorelick <mynameisfiber@gmail.com>
+Date: Thu, 7 Mar 2024 17:22:22 +0100
+Subject: [PATCH 2/2] Created .allocated() methods for list/set/dict to see
+ number of allocated elements in the underlying datastructure
+
+---
+ Objects/clinic/dictobject.c.h | 20 +++++++++++++++++++-
+ Objects/clinic/listobject.c.h | 20 +++++++++++++++++++-
+ Objects/dictobject.c          | 18 ++++++++++++++++++
+ Objects/listobject.c          | 17 +++++++++++++++--
+ Objects/setobject.c           |  9 +++++++++
+ list_resize_test.py           |  8 --------
+ resize_test.py                | 10 ++++++++++
+ 7 files changed, 90 insertions(+), 12 deletions(-)
+ delete mode 100644 list_resize_test.py
+ create mode 100644 resize_test.py
+
+diff --git a/Objects/clinic/dictobject.c.h b/Objects/clinic/dictobject.c.h
+index bc2452330e..6aa961930a 100644
+--- a/Objects/clinic/dictobject.c.h
++++ b/Objects/clinic/dictobject.c.h
+@@ -8,6 +8,24 @@ preserve
+ #endif
+ 
+ 
++PyDoc_STRVAR(dict_allocated__doc__,
++"allocated($self, /)\n"
++"--\n"
++"\n"
++"Returns number of allocated items");
++
++#define DICT_ALLOCATED_METHODDEF    \
++    {"allocated", (PyCFunction)dict_allocated, METH_NOARGS, dict_allocated__doc__},
++
++static PyObject *
++dict_allocated_impl(PyDictObject *self);
++
++static PyObject *
++dict_allocated(PyDictObject *self, PyObject *Py_UNUSED(ignored))
++{
++    return dict_allocated_impl(self);
++}
++
+ PyDoc_STRVAR(dict_fromkeys__doc__,
+ "fromkeys($type, iterable, value=None, /)\n"
+ "--\n"
+@@ -197,4 +215,4 @@ dict___reversed__(PyDictObject *self, PyObject *Py_UNUSED(ignored))
+ {
+     return dict___reversed___impl(self);
+ }
+-/*[clinic end generated code: output=c0064abbea6091c5 input=a9049054013a1b77]*/
++/*[clinic end generated code: output=e40c56cc5b460666 input=a9049054013a1b77]*/
+diff --git a/Objects/clinic/listobject.c.h b/Objects/clinic/listobject.c.h
+index e3d6ffa9f7..b176ab3a5f 100644
+--- a/Objects/clinic/listobject.c.h
++++ b/Objects/clinic/listobject.c.h
+@@ -290,6 +290,24 @@ exit:
+     return return_value;
+ }
+ 
++PyDoc_STRVAR(list_allocated__doc__,
++"allocated($self, /)\n"
++"--\n"
++"\n"
++"Returns number of allocated items");
++
++#define LIST_ALLOCATED_METHODDEF    \
++    {"allocated", (PyCFunction)list_allocated, METH_NOARGS, list_allocated__doc__},
++
++static PyObject *
++list_allocated_impl(PyListObject *self);
++
++static PyObject *
++list_allocated(PyListObject *self, PyObject *Py_UNUSED(ignored))
++{
++    return list_allocated_impl(self);
++}
++
+ PyDoc_STRVAR(list_count__doc__,
+ "count($self, value, /)\n"
+ "--\n"
+@@ -383,4 +401,4 @@ list___reversed__(PyListObject *self, PyObject *Py_UNUSED(ignored))
+ {
+     return list___reversed___impl(self);
+ }
+-/*[clinic end generated code: output=2ca109d8acc775bc input=a9049054013a1b77]*/
++/*[clinic end generated code: output=a68080a252567b49 input=a9049054013a1b77]*/
+diff --git a/Objects/dictobject.c b/Objects/dictobject.c
+index 254cd9ad2f..3bc7d197bf 100644
+--- a/Objects/dictobject.c
++++ b/Objects/dictobject.c
+@@ -2639,6 +2639,23 @@ dict_items(PyDictObject *mp)
+     return v;
+ }
+ 
++/*[clinic input]
++dict.allocated
++
++Returns number of allocated items 
++[clinic start generated code]*/
++
++static PyObject *
++dict_allocated_impl(PyDictObject *self)
++/*[clinic end generated code: output=4d7da600e6fb5fa7 input=3e45a8ecb1dd547e]*/
++{
++    if (!PyDict_Check(self)) {
++        return NULL;
++    }
++    PyDictObject *mp = (PyDictObject *)self;
++    return PyLong_FromSsize_t(DK_SIZE(mp->ma_keys));
++}
++
+ /*[clinic input]
+ @classmethod
+ dict.fromkeys
+@@ -3666,6 +3683,7 @@ static PyMethodDef mapp_methods[] = {
+     DICT_SETDEFAULT_METHODDEF
+     DICT_POP_METHODDEF
+     DICT_POPITEM_METHODDEF
++    DICT_ALLOCATED_METHODDEF    
+     {"keys",            dictkeys_new,                   METH_NOARGS,
+     keys__doc__},
+     {"items",           dictitems_new,                  METH_NOARGS,
+diff --git a/Objects/listobject.c b/Objects/listobject.c
+index c4b88fc5cc..bf132132ca 100644
+--- a/Objects/listobject.c
++++ b/Objects/listobject.c
+@@ -80,8 +80,6 @@ list_resize(PyListObject *self, Py_ssize_t newsize)
+         new_allocated = 0;
+     if (new_allocated <= (size_t)PY_SSIZE_T_MAX / sizeof(PyObject *)) {
+         num_allocated_bytes = new_allocated * sizeof(PyObject *);
+-
+-        printf("Reallocating bins for list: %ld len, %ld newsize, %ld new_alloc, change = %ld\n", Py_SIZE(self), newsize, new_allocated, new_allocated - allocated);
+         items = (PyObject **)PyMem_Realloc(self->ob_item, num_allocated_bytes);
+     }
+     else {
+@@ -2631,6 +2629,20 @@ list_index_impl(PyListObject *self, PyObject *value, Py_ssize_t start,
+     return NULL;
+ }
+ 
++/*[clinic input]
++list.allocated
++
++Returns number of allocated items
++[clinic start generated code]*/
++
++static PyObject *
++list_allocated_impl(PyListObject *self)
++/*[clinic end generated code: output=c6f18a59e2519d47 input=ebf27deb08b570b3]*/
++{
++    PyObject *return_value = PyLong_FromSsize_t(self->allocated);
++    return return_value;
++}
++
+ /*[clinic input]
+ list.count
+ 
+@@ -2857,6 +2869,7 @@ static PyMethodDef list_methods[] = {
+     LIST_POP_METHODDEF
+     LIST_REMOVE_METHODDEF
+     LIST_INDEX_METHODDEF
++    LIST_ALLOCATED_METHODDEF
+     LIST_COUNT_METHODDEF
+     LIST_REVERSE_METHODDEF
+     LIST_SORT_METHODDEF
+diff --git a/Objects/setobject.c b/Objects/setobject.c
+index 763f9a3d20..933e6852fe 100644
+--- a/Objects/setobject.c
++++ b/Objects/setobject.c
+@@ -625,6 +625,13 @@ set_merge(PySetObject *so, PyObject *otherset)
+     return 0;
+ }
+ 
++static PyObject *
++set_get_allocated(PySetObject *so, PyObject *Py_UNUSED(ignored))
++{
++    return PyLong_FromSsize_t(so->mask + 1);
++}
++PyDoc_STRVAR(allocated_doc, "Returns number of allocated elements.");
++
+ static PyObject *
+ set_pop(PySetObject *so, PyObject *Py_UNUSED(ignored))
+ {
+@@ -2059,6 +2066,8 @@ static PyMethodDef set_methods[] = {
+      issuperset_doc},
+     {"pop",             (PyCFunction)set_pop,           METH_NOARGS,
+      pop_doc},
++    {"allocated",             (PyCFunction)set_get_allocated,           METH_NOARGS,
++     allocated_doc},
+     {"__reduce__",      (PyCFunction)set_reduce,        METH_NOARGS,
+      reduce_doc},
+     {"remove",          (PyCFunction)set_remove,        METH_O,
+diff --git a/list_resize_test.py b/list_resize_test.py
+deleted file mode 100644
+index 8d559a865d..0000000000
+--- a/list_resize_test.py
++++ /dev/null
+@@ -1,8 +0,0 @@
+-items = []
+-
+-print()
+-print()
+-for i in range(1<<16):
+-    items.append(i)
+-print()
+-print()
+diff --git a/resize_test.py b/resize_test.py
+new file mode 100644
+index 0000000000..24b9c8ccd9
+--- /dev/null
++++ b/resize_test.py
+@@ -0,0 +1,10 @@
++items_list = []
++items_dict = dict()
++items_set = set()
++for i in range(1 << 8):
++    items_list.append(i)
++    items_dict[i] = True
++    items_set.add(i)
++    print(
++        f"{i=}\t{items_list.allocated()=}\t{items_dict.allocated()=}\t{items_set.allocated()=}"
++    )
+-- 
+2.25.1
+

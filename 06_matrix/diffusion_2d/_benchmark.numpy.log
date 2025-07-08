@@ -1,0 +1,68 @@
+Script started on 2024-12-21 13:47:44+00:00 [TERM="screen-256color" TTY="/dev/pts/5" COLUMNS="153" LINES="43"]
+Starting
+Grid size:  (64, 64)
+numpy: 114.87s, 0.000119s/it, 337315it 
+python: 119.94s, 0.002762s/it, 14452it [0.04x speedup]
+python+memory: 118.93s, 0.002411s/it, 16589it [0.05x speedup]
+numpy+memory: 116.74s, 0.000119s/it, 334642it [0.99x speedup]
+numpy+memory2: 116.77s, 0.000056s/it, 710358it [2.11x speedup]
+numpy+memory2+numexpr: 102.22s, 0.000151s/it, 264073it [0.79x speedup]
+numpy+memory+scipy: 114.55s, 0.000063s/it, 630133it [1.87x speedup]
+pytorch: 82.69s, 0.000127s/it, 313443it [0.93x speedup]
+pytorch+transfer: 116.25s, 0.000127s/it, 313272it [0.93x speedup]
+
+Grid size:  (256, 256)
+numpy: 115.14s, 0.000386s/it, 103757it 
+python: 119.87s, 0.044075s/it, 906it [0.01x speedup]
+python+memory: 118.92s, 0.038582s/it, 1031it [0.01x speedup]
+numpy+memory: 116.84s, 0.000372s/it, 107604it [1.04x speedup]
+numpy+memory2: 119.58s, 0.000344s/it, 116206it [1.12x speedup]
+numpy+memory2+numexpr: 119.00s, 0.000483s/it, 82732it [0.80x speedup]
+numpy+memory+scipy: 118.92s, 0.000912s/it, 43841it [0.42x speedup]
+pytorch: 117.51s, 0.000128s/it, 313060it [3.02x speedup]
+pytorch+transfer: 113.65s, 0.000128s/it, 313283it [3.02x speedup]
+
+Grid size:  (512, 512)
+numpy: 119.37s, 0.001926s/it, 20484it 
+python: 119.36s, 0.230978s/it, 172it [0.01x speedup]
+python+memory: 118.95s, 0.202213s/it, 197it [0.01x speedup]
+numpy+memory: 116.01s, 0.001428s/it, 27890it [1.35x speedup]
+numpy+memory2: 116.75s, 0.001278s/it, 31297it [1.51x speedup]
+numpy+memory2+numexpr: 118.38s, 0.001406s/it, 28445it [1.37x speedup]
+numpy+memory+scipy: 118.99s, 0.005507s/it, 7263it [0.35x speedup]
+pytorch: 112.27s, 0.000129s/it, 309136it [14.92x speedup]
+pytorch+transfer: 106.47s, 0.000129s/it, 309814it [14.92x speedup]
+
+Grid size:  (2048, 2048)
+numpy: 119.74s, 0.051683s/it, 773it 
+python: 107.21s, 4.461747s/it, 8it [0.01x speedup]
+python+memory: 116.17s, 3.859513s/it, 10it [0.01x speedup]
+numpy+memory: 119.95s, 0.056229s/it, 711it [0.92x speedup]
+numpy+memory2: 119.94s, 0.039155s/it, 1021it [1.32x speedup]
+numpy+memory2+numexpr: 119.35s, 0.034648s/it, 1154it [1.49x speedup]
+numpy+memory+scipy: 119.76s, 0.098314s/it, 406it [0.53x speedup]
+pytorch: 309.59s, 0.000922s/it, 43382it [56.05x speedup]
+pytorch+transfer: 84.25s, 0.000924s/it, 43290it [55.93x speedup]
+
+Grid size:  (4096, 4096)
+numpy: 119.32s, 0.214675s/it, 186it 
+python: 109.20s, 18.144166s/it, 2it [0.01x speedup]
+python+memory: 100.60s, 16.712966s/it, 2it [0.01x speedup]
+numpy+memory: 118.83s, 0.223726s/it, 178it [0.96x speedup]
+numpy+memory2: 118.56s, 0.151964s/it, 263it [1.41x speedup]
+numpy+memory2+numexpr: 117.97s, 0.135005s/it, 296it [1.59x speedup]
+numpy+memory+scipy: 119.44s, 0.555290s/it, 71it [0.39x speedup]
+pytorch: 962.59s, 0.003599s/it, 11112it [59.64x speedup]
+pytorch+transfer: 83.92s, 0.003629s/it, 11021it [59.15x speedup]
+
+Grid size:  (8192, 8192)
+numpy: 118.85s, 0.824789s/it, 48it 
+Traceback (most recent call last):
+  File "/home/micha/projects/high_performance_python_2e_code/06_matrix/diffusion_2d/_benchmark.py", line 72, in <module>
+    data["python"].append(run_experiment(diffusion_python, "python", baseline))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/micha/projects/high_performance_python_2e_code/06_matrix/diffusion_2d/_benchmark.py", line 20, in run_experiment
+    raise RuntimeError("One iteration too slow")
+RuntimeError: One iteration too slow
+
+Script done on 2024-12-21 15:53:22+00:00 [COMMAND_EXIT_CODE="1"]

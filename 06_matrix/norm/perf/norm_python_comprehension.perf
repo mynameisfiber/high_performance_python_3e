@@ -1,0 +1,23 @@
+0.07263636589050293
+
+ Performance counter stats for 'python norm_python_comprehension.py':
+
+     2,825,163,499      cycles                    #    3.182 GHz                      
+     6,617,382,190      instructions              #    2.34  insn per cycle           
+        92,787,395      cache-references          #  104.510 M/sec                    
+         7,885,912      cache-misses              #    8.499 % of all cache refs      
+     1,372,667,742      branches                  # 1546.091 M/sec                    
+         6,143,243      branch-misses             #    0.45% of all branches          
+            887.83 msec task-clock                #    1.001 CPUs utilized          
+            96,957      faults                    #    0.109 M/sec                  
+            96,957      page-faults               #    0.109 M/sec                  
+            96,957      minor-faults              #    0.109 M/sec                  
+                74      cs                        #    0.083 K/sec                  
+                11      migrations                #    0.012 K/sec                  
+
+       0.887177613 seconds time elapsed
+
+       0.735598000 seconds user
+       0.153452000 seconds sys
+
+

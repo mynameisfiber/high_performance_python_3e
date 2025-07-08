@@ -1,0 +1,23 @@
+0.0014524459838867188
+
+ Performance counter stats for 'python norm_numpy.py':
+
+     4,233,178,242      cycles                    #    3.181 GHz                      
+     4,544,300,144      instructions              #    1.07  insn per cycle           
+        82,228,315      cache-references          #   61.792 M/sec                    
+        16,167,734      cache-misses              #   19.662 % of all cache refs      
+       933,950,701      branches                  #  701.837 M/sec                    
+        27,758,729      branch-misses             #    2.97% of all branches          
+          1,330.72 msec task-clock                #    0.436 CPUs utilized          
+            13,032      faults                    #    0.010 M/sec                  
+            13,032      page-faults               #    0.010 M/sec                  
+            11,991      minor-faults              #    0.009 M/sec                  
+           268,559      cs                        #    0.202 M/sec                  
+                45      migrations                #    0.034 K/sec                  
+
+       3.055185414 seconds time elapsed
+
+       0.416885000 seconds user
+       0.915746000 seconds sys
+
+

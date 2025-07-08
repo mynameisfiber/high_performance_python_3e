@@ -1,0 +1,10 @@
+Pillow==11.3.0
+matplotlib==3.10.3
+snakeviz==2.2.2
+line-profiler==5.0.0
+memory-profiler==0.61.0
+psutil==7.0.0
+scalene==1.5.51
+py-spy==0.4.0
+viztracer==1.0.4
+specialist==0.7.0

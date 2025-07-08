@@ -1,0 +1,6 @@
+words_trie.saved
+src/
+all_unique_words.txt
+all_unique_words_wikipedia_via_gensim.txt
+mword10/
+*.saved

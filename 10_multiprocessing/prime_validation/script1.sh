@@ -1,0 +1,10 @@
+python primes.py
+python primes_pool_per_number1.py
+python primes_pool_per_number2.py
+python primes_pool_per_number_redis.py
+python primes_pool_per_number_manager.py
+python primes_pool_per_number_value.py
+python primes_pool_per_number_mmap.py
+python primes_pool_per_number_mmap2.py
+python primes_pool_per_number_mmap3.py
+

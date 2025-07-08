@@ -1,0 +1,3 @@
+*.prof
+.coverage
+cov_html/*

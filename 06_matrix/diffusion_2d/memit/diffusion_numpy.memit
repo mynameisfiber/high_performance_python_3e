@@ -1,0 +1,10 @@
+Runtime with grid (2048, 2048): 5.7933s
+Filename: diffusion_numpy.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    25   63.297 MiB -3105.281 MiB         100   @profile
+    26                                         def evolve(grid, dt, D=1):
+    27   95.301 MiB 3200.582 MiB         100       return grid + dt * D * laplacian(grid)
+
+

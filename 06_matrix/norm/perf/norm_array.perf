@@ -1,0 +1,23 @@
+0.13142800331115723
+
+ Performance counter stats for 'python norm_array.py':
+
+     4,754,201,800      cycles                    #    3.187 GHz                      
+    10,795,439,412      instructions              #    2.27  insn per cycle           
+        27,325,795      cache-references          #   18.318 M/sec                    
+         5,137,561      cache-misses              #   18.801 % of all cache refs      
+     2,268,956,460      branches                  # 1521.012 M/sec                    
+        15,620,246      branch-misses             #    0.69% of all branches          
+          1,491.74 msec task-clock                #    1.000 CPUs utilized          
+            19,162      faults                    #    0.013 M/sec                  
+            19,162      page-faults               #    0.013 M/sec                  
+            19,162      minor-faults              #    0.013 M/sec                  
+                76      cs                        #    0.051 K/sec                  
+                16      migrations                #    0.011 K/sec                  
+
+       1.491250111 seconds time elapsed
+
+       1.468417000 seconds user
+       0.024634000 seconds sys
+
+
